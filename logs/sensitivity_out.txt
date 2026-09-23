@@ -1,0 +1,353 @@
+Working directory: C:\Users\utente\OneDrive - Università degli Studi dell'Aquila\Documenti\Qazi Salman Paper\SIDN-CRO_ML_Paper
+Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+
+========================================================================
+  budget_scale sensitivity: dataset=dataco  seed=42
+========================================================================
+  [1/4] Training A4 (SIDN-MSE + CRO calibration)...
+
+============================================================
+  Training A1 SIDN-MSE on DataCo  seed=42
+  hidden=64  lr=0.0005  epochs=300  patience=25
+============================================================
+  Fit completed in 16.3s
+  Train set:
+  [A1]  MAE=28.8  RMSE=40.0  MAPE=14.56%  R2=0.9466
+  Val set  :
+  [A1]  MAE=40.5  RMSE=58.3  MAPE=19.00%  R2=0.8893
+
+  Structural parameters on val set:
+
+Parameter          Mean        Std        Min        Max
+-------------------------------------------------------
+D0              31.5868    14.4468     9.3050    61.1830
+beta             0.4411     0.1861     0.1582     0.8182
+k1               0.7455     0.2137     0.4740     1.3464
+k2               0.2331     0.0664     0.1134     0.3570
+k3               0.2047     0.0709     0.0827     0.3384
+alpha            0.3728     0.1596     0.1428     0.6775
+  ConformalCalibrator(alpha=0.1, n_cal=255, q_sym=98.989, q_lo=0.000, q_hi=0.000)
+  Calibration coverage: 90.2%  (target: 90%)
+  A4 ready in 16.4s
+  [2/4] Fitting true-demand proxy (B0 on train+val)...
+  [3/4] Computing pi* cache at budget_scale=1.00 (main-experiment baseline)...
+  [4/4] Sweeping budget_scale configurations...
+
+  [A4_budget_sens] on DataCo  seed=42
+    NR = 5.37 +/- 5.19 %
+    MAPE = 39.89%  R2 = 0.7307
+    Feasible = 95.5%  elapsed=583.4s
+
+  [A4_budget_sens] on DataCo  seed=42
+    NR = 6.41 +/- 5.23 %
+    MAPE = 39.89%  R2 = 0.7307
+    Feasible = 100.0%  elapsed=572.2s
+
+  [A4_budget_sens] on DataCo  seed=42
+    NR = 8.61 +/- 4.19 %
+    MAPE = 39.89%  R2 = 0.7307
+    Feasible = 100.0%  elapsed=564.3s
+
+  [A4_budget_sens] on DataCo  seed=42
+    NR = 9.18 +/- 6.44 %
+    MAPE = 39.89%  R2 = 0.7307
+    Feasible = 100.0%  elapsed=712.2s
+
+  [A4_budget_sens] on DataCo  seed=42
+    NR = 9.43 +/- 7.13 %
+    MAPE = 39.89%  R2 = 0.7307
+    Feasible = 100.0%  elapsed=421.5s
+    x0.50  NR%=5.37  dNR=-3.23pp
+    x0.75  NR%=6.41  dNR=-2.19pp
+    x1.00  NR%=8.61  dNR=+0.00pp <-- baseline
+    x1.25  NR%=9.18  dNR=+0.57pp
+    x1.50  NR%=9.43  dNR=+0.83pp
+  Baseline NR% = 8.61%  (budget_scale=1.00)
+
+==================================================================
+  budget_scale sensitivity  |  dataset=dataco  seed=42
+  Baseline NR% = 8.61%  (threshold: +-1.5pp)
+  Max |dNR| = 3.23pp  [HIGH]
+==================================================================
+   Scale       NR%    dNR (pp)
+  ----------------------------
+  x0.50      5.37       -3.23pp    
+  x0.75      6.41       -2.19pp    
+  x1.00      8.61       +0.00pp <--
+  x1.25      9.18       +0.57pp    
+  x1.50      9.43       +0.83pp    
+
+========================================================================
+  budget_scale sensitivity: dataset=dataco  seed=43
+========================================================================
+  [1/4] Training A4 (SIDN-MSE + CRO calibration)...
+
+============================================================
+  Training A1 SIDN-MSE on DataCo  seed=43
+  hidden=64  lr=0.0005  epochs=300  patience=25
+============================================================
+  Fit completed in 11.1s
+  Train set:
+  [A1]  MAE=29.0  RMSE=40.2  MAPE=14.69%  R2=0.9462
+  Val set  :
+  [A1]  MAE=37.0  RMSE=49.1  MAPE=21.73%  R2=0.9216
+
+  Structural parameters on val set:
+
+Parameter          Mean        Std        Min        Max
+-------------------------------------------------------
+D0              35.1126    14.5395    11.4723    62.3152
+beta             0.5443     0.1643     0.2451     0.8217
+k1               0.6602     0.1291     0.4775     0.9870
+k2               0.2532     0.0620     0.1355     0.3574
+k3               0.2295     0.0668     0.1073     0.3451
+alpha            0.3830     0.1516     0.1571     0.6768
+  ConformalCalibrator(alpha=0.1, n_cal=255, q_sym=68.397, q_lo=0.000, q_hi=0.000)
+  Calibration coverage: 90.2%  (target: 90%)
+  A4 ready in 11.2s
+  [2/4] Fitting true-demand proxy (B0 on train+val)...
+  [3/4] Computing pi* cache at budget_scale=1.00 (main-experiment baseline)...
+  [4/4] Sweeping budget_scale configurations...
+
+  [A4_budget_sens] on DataCo  seed=43
+    NR = 10.10 +/- 5.66 %
+    MAPE = 22.41%  R2 = 0.8960
+    Feasible = 95.5%  elapsed=754.2s
+
+  [A4_budget_sens] on DataCo  seed=43
+    NR = 8.76 +/- 6.84 %
+    MAPE = 22.41%  R2 = 0.8960
+    Feasible = 95.5%  elapsed=998.9s
+
+  [A4_budget_sens] on DataCo  seed=43
+    NR = 9.73 +/- 7.21 %
+    MAPE = 22.41%  R2 = 0.8960
+    Feasible = 100.0%  elapsed=861.3s
+
+  [A4_budget_sens] on DataCo  seed=43
+    NR = 9.68 +/- 7.50 %
+    MAPE = 22.41%  R2 = 0.8960
+    Feasible = 100.0%  elapsed=792.7s
+
+  [A4_budget_sens] on DataCo  seed=43
+    NR = 12.61 +/- 5.43 %
+    MAPE = 22.41%  R2 = 0.8960
+    Feasible = 100.0%  elapsed=527.8s
+    x0.50  NR%=10.10  dNR=+0.37pp
+    x0.75  NR%=8.76  dNR=-0.97pp
+    x1.00  NR%=9.73  dNR=+0.00pp <-- baseline
+    x1.25  NR%=9.68  dNR=-0.05pp
+    x1.50  NR%=12.61  dNR=+2.88pp
+  Baseline NR% = 9.73%  (budget_scale=1.00)
+
+==================================================================
+  budget_scale sensitivity  |  dataset=dataco  seed=43
+  Baseline NR% = 9.73%  (threshold: +-1.5pp)
+  Max |dNR| = 2.88pp  [MODERATE]
+==================================================================
+   Scale       NR%    dNR (pp)
+  ----------------------------
+  x0.50     10.10       +0.37pp    
+  x0.75      8.76       -0.97pp    
+  x1.00      9.73       +0.00pp <--
+  x1.25      9.68       -0.05pp    
+  x1.50     12.61       +2.88pp    
+
+========================================================================
+  budget_scale sensitivity: dataset=dataco  seed=44
+========================================================================
+  [1/4] Training A4 (SIDN-MSE + CRO calibration)...
+
+============================================================
+  Training A1 SIDN-MSE on DataCo  seed=44
+  hidden=64  lr=0.0005  epochs=300  patience=25
+============================================================
+  Fit completed in 10.2s
+  Train set:
+  [A1]  MAE=28.9  RMSE=39.4  MAPE=15.08%  R2=0.9484
+  Val set  :
+  [A1]  MAE=33.8  RMSE=45.2  MAPE=19.77%  R2=0.9335
+
+  Structural parameters on val set:
+
+Parameter          Mean        Std        Min        Max
+-------------------------------------------------------
+D0              35.9545    16.1145     9.5128    66.8476
+beta             0.5571     0.1824     0.2295     0.8808
+k1               0.6578     0.1558     0.4499     1.0572
+k2               0.2408     0.0728     0.1031     0.3690
+k3               0.2250     0.0761     0.0862     0.3619
+alpha            0.4225     0.1810     0.1529     0.7748
+  ConformalCalibrator(alpha=0.1, n_cal=255, q_sym=73.274, q_lo=0.000, q_hi=0.000)
+  Calibration coverage: 90.2%  (target: 90%)
+  A4 ready in 10.3s
+  [2/4] Fitting true-demand proxy (B0 on train+val)...
+  [3/4] Computing pi* cache at budget_scale=1.00 (main-experiment baseline)...
+  [4/4] Sweeping budget_scale configurations...
+
+  [A4_budget_sens] on DataCo  seed=44
+    NR = 10.72 +/- 3.83 %
+    MAPE = 25.56%  R2 = 0.8812
+    Feasible = 100.0%  elapsed=425.7s
+
+  [A4_budget_sens] on DataCo  seed=44
+    NR = 11.06 +/- 4.51 %
+    MAPE = 25.56%  R2 = 0.8812
+    Feasible = 100.0%  elapsed=549.0s
+
+  [A4_budget_sens] on DataCo  seed=44
+    NR = 12.71 +/- 5.87 %
+    MAPE = 25.56%  R2 = 0.8812
+    Feasible = 100.0%  elapsed=358.2s
+
+  [A4_budget_sens] on DataCo  seed=44
+    NR = 9.57 +/- 6.49 %
+    MAPE = 25.56%  R2 = 0.8812
+    Feasible = 100.0%  elapsed=538.1s
+
+  [A4_budget_sens] on DataCo  seed=44
+    NR = 10.96 +/- 6.73 %
+    MAPE = 25.56%  R2 = 0.8812
+    Feasible = 95.5%  elapsed=674.7s
+    x0.50  NR%=10.72  dNR=-1.99pp
+    x0.75  NR%=11.06  dNR=-1.65pp
+    x1.00  NR%=12.71  dNR=+0.00pp <-- baseline
+    x1.25  NR%=9.57  dNR=-3.14pp
+    x1.50  NR%=10.96  dNR=-1.75pp
+  Baseline NR% = 12.71%  (budget_scale=1.00)
+
+==================================================================
+  budget_scale sensitivity  |  dataset=dataco  seed=44
+  Baseline NR% = 12.71%  (threshold: +-1.5pp)
+  Max |dNR| = 3.14pp  [HIGH]
+==================================================================
+   Scale       NR%    dNR (pp)
+  ----------------------------
+  x0.50     10.72       -1.99pp    
+  x0.75     11.06       -1.65pp    
+  x1.00     12.71       +0.00pp <--
+  x1.25      9.57       -3.14pp    
+  x1.50     10.96       -1.75pp    
+
+========================================================================
+  budget_scale sensitivity: dataset=dataco  seed=45
+========================================================================
+  [1/4] Training A4 (SIDN-MSE + CRO calibration)...
+
+============================================================
+  Training A1 SIDN-MSE on DataCo  seed=45
+  hidden=64  lr=0.0005  epochs=300  patience=25
+============================================================
+  Fit completed in 13.7s
+  Train set:
+  [A1]  MAE=28.7  RMSE=39.5  MAPE=14.68%  R2=0.9479
+  Val set  :
+  [A1]  MAE=53.8  RMSE=78.6  MAPE=20.42%  R2=0.7992
+
+  Structural parameters on val set:
+
+Parameter          Mean        Std        Min        Max
+-------------------------------------------------------
+D0              26.9853    12.5251     8.2696    53.4440
+beta             0.4727     0.1582     0.2134     0.7834
+k1               0.8202     0.2132     0.5234     1.4100
+k2               0.2391     0.0620     0.1273     0.3558
+k3               0.2085     0.0652     0.0957     0.3337
+alpha            0.3490     0.1387     0.1506     0.6353
+  ConformalCalibrator(alpha=0.1, n_cal=255, q_sym=132.685, q_lo=0.000, q_hi=0.000)
+  Calibration coverage: 90.2%  (target: 90%)
+  A4 ready in 13.8s
+  [2/4] Fitting true-demand proxy (B0 on train+val)...
+  [3/4] Computing pi* cache at budget_scale=1.00 (main-experiment baseline)...
+  [4/4] Sweeping budget_scale configurations...
+
+  [A4_budget_sens] on DataCo  seed=45
+    NR = 5.20 +/- 4.62 %
+    MAPE = 55.26%  R2 = 0.5085
+    Feasible = 100.0%  elapsed=354.3s
+
+  [A4_budget_sens] on DataCo  seed=45
+    NR = 5.04 +/- 5.96 %
+    MAPE = 55.26%  R2 = 0.5085
+    Feasible = 100.0%  elapsed=429.6s
+
+  [A4_budget_sens] on DataCo  seed=45
+    NR = 4.76 +/- 5.39 %
+    MAPE = 55.26%  R2 = 0.5085
+    Feasible = 100.0%  elapsed=365.0s
+
+  [A4_budget_sens] on DataCo  seed=45
+    NR = 6.96 +/- 3.34 %
+    MAPE = 55.26%  R2 = 0.5085
+    Feasible = 100.0%  elapsed=257.2s
+
+  [A4_budget_sens] on DataCo  seed=45
+    NR = 6.43 +/- 5.04 %
+    MAPE = 55.26%  R2 = 0.5085
+    Feasible = 100.0%  elapsed=369.3s
+    x0.50  NR%=5.20  dNR=+0.44pp
+    x0.75  NR%=5.04  dNR=+0.28pp
+    x1.00  NR%=4.76  dNR=+0.00pp <-- baseline
+    x1.25  NR%=6.96  dNR=+2.20pp
+    x1.50  NR%=6.43  dNR=+1.67pp
+  Baseline NR% = 4.76%  (budget_scale=1.00)
+
+==================================================================
+  budget_scale sensitivity  |  dataset=dataco  seed=45
+  Baseline NR% = 4.76%  (threshold: +-1.5pp)
+  Max |dNR| = 2.20pp  [MODERATE]
+==================================================================
+   Scale       NR%    dNR (pp)
+  ----------------------------
+  x0.50      5.20       +0.44pp    
+  x0.75      5.04       +0.28pp    
+  x1.00      4.76       +0.00pp <--
+  x1.25      6.96       +2.20pp    
+  x1.50      6.43       +1.67pp    
+
+========================================================================
+  budget_scale sensitivity: dataset=dataco  seed=46
+========================================================================
+  [1/4] Training A4 (SIDN-MSE + CRO calibration)...
+
+============================================================
+  Training A1 SIDN-MSE on DataCo  seed=46
+  hidden=64  lr=0.0005  epochs=300  patience=25
+============================================================
+  Fit completed in 9.3s
+  Train set:
+  [A1]  MAE=28.8  RMSE=39.5  MAPE=15.28%  R2=0.9480
+  Val set  :
+  [A1]  MAE=51.9  RMSE=76.1  MAPE=19.63%  R2=0.8117
+
+  Structural parameters on val set:
+
+Parameter          Mean        Std        Min        Max
+-------------------------------------------------------
+D0              29.1851    13.0591     9.3015    55.8731
+beta             0.5098     0.1611     0.2436     0.7951
+k1               0.6851     0.1488     0.4855     1.0388
+k2               0.2335     0.0591     0.1250     0.3455
+k3               0.2112     0.0627     0.1007     0.3308
+alpha            0.3435     0.1433     0.1475     0.6283
+  ConformalCalibrator(alpha=0.1, n_cal=255, q_sym=133.033, q_lo=0.000, q_hi=0.000)
+  Calibration coverage: 90.2%  (target: 90%)
+  A4 ready in 9.3s
+  [2/4] Fitting true-demand proxy (B0 on train+val)...
+  [3/4] Computing pi* cache at budget_scale=1.00 (main-experiment baseline)...
+  [4/4] Sweeping budget_scale configurations...
+
+  [A4_budget_sens] on DataCo  seed=46
+    NR = 5.77 +/- 5.10 %
+    MAPE = 54.59%  R2 = 0.5329
+    Feasible = 100.0%  elapsed=381.2s
+
+  [A4_budget_sens] on DataCo  seed=46
+    NR = 4.39 +/- 4.85 %
+    MAPE = 54.59%  R2 = 0.5329
+    Feasible = 100.0%  elapsed=673.4s
+
+  [A4_budget_sens] on DataCo  seed=46
+    NR = 5.93 +/- 5.43 %
+    MAPE = 54.59%  R2 = 0.5329
+    Feasible = 100.0%  elapsed=730.9s

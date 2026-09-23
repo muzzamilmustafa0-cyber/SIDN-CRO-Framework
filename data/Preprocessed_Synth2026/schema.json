@@ -1,0 +1,57 @@
+{
+  "cont_feats": [
+    "p",
+    "disc_rate",
+    "b_s",
+    "b_m",
+    "b_r",
+    "u_s",
+    "u_m",
+    "u_r",
+    "share_eu",
+    "share_latam",
+    "share_pac",
+    "share_usca",
+    "share_africa",
+    "sin_woy",
+    "cos_woy",
+    "year_norm"
+  ],
+  "cat_feats": [
+    "product_Accessories-Bags",
+    "product_Accessories-Jewellery",
+    "product_Apparel-Activewear",
+    "product_Apparel-Outerwear",
+    "product_Footwear",
+    "retailer_Discount",
+    "retailer_Mass-Market",
+    "retailer_Premium"
+  ],
+  "target": "qty_aug",
+  "products": [
+    "Apparel-Outerwear",
+    "Apparel-Activewear",
+    "Footwear",
+    "Accessories-Bags",
+    "Accessories-Jewellery"
+  ],
+  "retailers": [
+    "Premium",
+    "Mass-Market",
+    "Discount"
+  ],
+  "augmentation_params": {
+    "k1": 0.03,
+    "k2": 0.03,
+    "k3": 0.04,
+    "alpha_inc": 0.95,
+    "noise_sd": 0.05,
+    "seed_base": 142
+  },
+  "split": {
+    "panel_start": "2024-01-01",
+    "panel_end": "2026-04-28",
+    "train_end": "2025-08-01",
+    "val_end": "2025-12-01"
+  }
+}

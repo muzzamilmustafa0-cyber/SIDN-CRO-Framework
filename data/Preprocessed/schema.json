@@ -1,0 +1,57 @@
+{
+  "cont_feats": [
+    "p",
+    "disc_rate",
+    "b_s",
+    "b_m",
+    "b_r",
+    "u_s",
+    "u_m",
+    "u_r",
+    "share_eu",
+    "share_latam",
+    "share_pac",
+    "share_usca",
+    "share_africa",
+    "sin_woy",
+    "cos_woy",
+    "year_norm"
+  ],
+  "cat_feats": [
+    "product_Apparel",
+    "product_Fan_Shop",
+    "product_Footwear",
+    "product_Golf",
+    "product_Outdoors",
+    "retailer_Consumer",
+    "retailer_Corporate",
+    "retailer_Home_Office"
+  ],
+  "target": "qty_aug",
+  "products": [
+    "Apparel",
+    "Fan Shop",
+    "Footwear",
+    "Golf",
+    "Outdoors"
+  ],
+  "retailers": [
+    "Consumer",
+    "Corporate",
+    "Home Office"
+  ],
+  "augmentation_params": {
+    "k1": 0.03,
+    "k2": 0.03,
+    "k3": 0.04,
+    "alpha_inc": 0.8,
+    "noise_sd": 0.05,
+    "seed": 44
+  },
+  "split": {
+    "panel_start": "2015-01-01",
+    "panel_end": "2017-09-30",
+    "train_end": "2017-01-01",
+    "val_end": "2017-05-01"
+  }
+}

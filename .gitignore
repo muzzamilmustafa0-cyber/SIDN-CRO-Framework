@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+data/Preprocessed_HM/
+data/Raw_Data/*.zip
+data/Raw_Data/DataCoSupplyChainDataset.csv
+.DS_Store
+Thumbs.db

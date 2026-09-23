@@ -1,0 +1,4 @@
+split,n_obs,n_active,weeks,products,retailers,qty_aug_mean,qty_aug_sd,p_mean,ad_total_mean,avg_circ_mean,first_week,last_week
+train,1560,1560,104,5,3,246.95,173.27,97.06,960.49,0.018,2015-01-05,2016-12-26
+val,255,255,17,5,3,251.08,175.66,98.93,984.88,0.0258,2017-01-02,2017-04-24
+test,330,330,22,5,3,235.31,175.2,132.04,985.84,0.0287,2017-05-01,2017-09-25

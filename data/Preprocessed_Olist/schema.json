@@ -1,0 +1,53 @@
+{
+  "cont_feats": [
+    "p",
+    "freight",
+    "b_s",
+    "b_m",
+    "b_r",
+    "u_s",
+    "u_m",
+    "u_r",
+    "weight",
+    "sin_woy",
+    "cos_woy",
+    "year_norm"
+  ],
+  "cat_feats": [
+    "product_bed_bath_table",
+    "product_computers_accessories",
+    "product_furniture_decor",
+    "product_health_beauty",
+    "product_sports_leisure",
+    "retailer_Other",
+    "retailer_SP",
+    "retailer_Southeast"
+  ],
+  "target": "qty_aug",
+  "products": [
+    "bed_bath_table",
+    "computers_accessories",
+    "furniture_decor",
+    "health_beauty",
+    "sports_leisure"
+  ],
+  "retailers": [
+    "Other",
+    "SP",
+    "Southeast"
+  ],
+  "augmentation_params": {
+    "k1": 0.03,
+    "k2": 0.03,
+    "k3": 0.04,
+    "alpha_inc": 0.8,
+    "noise_sd": 0.05,
+    "seed": 44
+  },
+  "split": {
+    "panel_start": "2016-10-03",
+    "panel_end": "2018-08-29",
+    "train_end": "2018-02-01",
+    "val_end": "2018-06-01"
+  }
+}

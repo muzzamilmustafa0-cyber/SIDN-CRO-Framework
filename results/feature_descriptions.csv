@@ -1,0 +1,38 @@
+variable,type/unit,description
+product,categorical,"Product line: one of {Fan Shop, Apparel, Golf, Footwear, Outdoors} -- top-5 DataCo departments by volume (~96% coverage)"
+retailer,categorical,B2C/B2B segment (Consumer / Corporate / Home Office) used as the three retailers
+week_start,timestamp,ISO week start (Monday)
+p,USD/unit,"Mean Order Item Product Price for the (retailer, week)"
+disc_rate,fraction,Mean Order Item Discount Rate
+qty_obs,units/week,Sum of Order Item Quantity (raw DataCo demand signal)
+qty_aug,units/week,"Augmented target: qty_obs * Ad_eff(b) * Cir_eff(u) * exp(eps), eps~N(0,0.05^2)"
+qty_baseline,units/week,qty_obs (renamed for diagnostics)
+sales,USD/week,Sum of Sales
+profit,USD/week,Sum of Order Profit Per Order
+n_orders,count,Distinct Order Id count
+had_orders,0/1,Indicator: any order recorded that week
+share_eu,fraction,Share of weekly orders shipped to Europe
+share_latam,fraction,Share to LATAM
+share_pac,fraction,Share to Pacific Asia
+share_usca,fraction,Share to US/Canada
+share_africa,fraction,Share to Africa
+b_s,USD/week,Calibrated supplier ad spend (cooperative split 25%)
+b_m,USD/week,Calibrated manufacturer ad spend (35%)
+b_r,USD/week,Calibrated retailer ad spend (40%)
+u_s,"[0,1]",Calibrated supplier circular fraction
+u_m,"[0,1]",Calibrated manufacturer circular fraction
+u_r,"[0,1]",Calibrated retailer circular fraction
+avg_circ,"[0,1]","Mean of (u_s, u_m, u_r)"
+ad_eff,multiplier,1 + k1*ln(1+b_s) + k2*ln(1+b_m) + k3*ln(1+b_r)
+cir_eff,multiplier,1 + alpha_inc * avg_circ
+sin_woy,feature,sin(2*pi*weekofyear/52)
+cos_woy,feature,cos(2*pi*weekofyear/52)
+year_norm,feature,(year - 2015)/3
+product_Fan_Shop,0/1,Product one-hot encoding
+product_Apparel,0/1,Product one-hot encoding
+product_Golf,0/1,Product one-hot encoding
+product_Footwear,0/1,Product one-hot encoding
+product_Outdoors,0/1,Product one-hot encoding
+retailer_Consumer,0/1,Retailer one-hot encoding
+retailer_Corporate,0/1,Retailer one-hot encoding
+retailer_Home_Office,0/1,Retailer one-hot encoding

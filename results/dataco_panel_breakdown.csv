@@ -1,0 +1,16 @@
+product,retailer,n_obs,qty_aug_mean,p_mean,ad_total_mean,avg_circ_mean
+Apparel,Consumer,143,516.5,93.38,2088.68,0.0271
+Apparel,Corporate,143,299.77,93.9,1439.06,0.0351
+Apparel,Home Office,143,172.3,92.88,647.21,0.024
+Fan Shop,Consumer,143,579.59,228.96,3166.17,0.0103
+Fan Shop,Corporate,143,338.91,227.3,2180.58,0.0162
+Fan Shop,Home Office,143,181.25,229.61,947.35,0.0087
+Footwear,Consumer,143,225.57,93.41,980.04,0.0234
+Footwear,Corporate,143,128.28,92.7,668.66,0.0317
+Footwear,Home Office,143,69.42,95.13,283.99,0.0188
+Golf,Consumer,143,505.62,46.56,901.32,0.0145
+Golf,Corporate,143,288.55,46.75,587.94,0.0195
+Golf,Home Office,143,156.93,46.55,259.16,0.0129
+Outdoors,Consumer,143,117.78,50.56,180.18,0.0218
+Outdoors,Corporate,143,67.15,50.64,121.48,0.027
+Outdoors,Home Office,143,37.17,51.6,57.56,0.0177
