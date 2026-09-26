@@ -1,0 +1,34 @@
+{
+ "panel": "dataco",
+ "pair": [
+  1,
+  0
+ ],
+ "hist_rel_range": [
+  0.7408182621002197,
+  1.3498587608337402
+ ],
+ "planned_rel_price": {
+  "oracle": 0.9419477738420744,
+  "SIDN-CRO": 1.2420936162960454,
+  "XGBoost+CRO": 1.5999996619798469
+ },
+ "true_elasticity": 2.0446006325296624,
+ "sidn_elast_at_plan": 1.7462877924707472,
+ "xgb_elast_at_plan": 0.0,
+ "true_D_at_xgb_plan": 262.77205871157753,
+ "xgb_band_at_xgb_plan": [
+  282.84189523876347,
+  692.6702077706055
+ ],
+ "true_D_at_sidn_plan": 440.99057753526694,
+ "sidn_band_at_sidn_plan": [
+  200.63902294218042,
+  830.8411256946061
+ ],
+ "elasticity_measure": "arc elasticity over 5% price increases",
+ "xgb_min_arc_elasticity": [
+  -11.897570868869257,
+  0.71
+ ]
+}

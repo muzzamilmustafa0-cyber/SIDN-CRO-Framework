@@ -1,0 +1,9 @@
+54 tasks on 15 workers
+keep-awake: True
+[1/54] sp0.05/dataco_F1_seed42.json ok 2718s (elapsed 45.3 min)
+[2/54] sp0.05/dataco_F2_seed42.json ok 2738s (elapsed 45.6 min)
+[3/54] sp0.30/dataco_F2_seed42.json ok 3031s (elapsed 50.5 min)
+[4/54] sd0.05/dataco_F1_seed42.json ok 3069s (elapsed 51.2 min)
+[5/54] sp0.05/olist_F2_seed42.json ok 3094s (elapsed 51.6 min)
+[6/54] sd0.05/olist_F1_seed42.json ok 3099s (elapsed 51.7 min)
+[7/54] sp0.05/olist_F1_seed42.json ok 3111s (elapsed 51.9 min)

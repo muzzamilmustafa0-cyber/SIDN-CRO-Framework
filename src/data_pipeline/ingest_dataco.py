@@ -33,8 +33,8 @@ For every (product i, retailer j, week t) we compute:
 
 References
 ----------
-Constante, F.; Silva, F.; Pereira, A. "DataCo SMART SUPPLY CHAIN FOR BIG DATA
-ANALYSIS". Mendeley Data, V3, 2019. doi:10.17632/8gx2fvg2k6.3
+Constante, F. "DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS".
+Mendeley Data, V3, 2019. doi:10.17632/8gx2fvg2k6.3
 """
 
 from __future__ import annotations

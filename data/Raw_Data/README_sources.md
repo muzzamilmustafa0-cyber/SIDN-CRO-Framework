@@ -13,7 +13,7 @@
 | License      | CC BY 4.0 |
 | Size         | 91.5 MB / 180 519 rows / 53 fields |
 | Time span    | 2015-01-01 to 2018-01-31 |
-| Citation     | Constante, F.; Silva, F.; Pereira, A. *DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS*. Mendeley Data, V3, 2019. |
+| Citation     | Constante, F. *DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS*. Mendeley Data, V3, 2019. |
 
 ## Download
 
