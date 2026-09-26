@@ -354,6 +354,20 @@ their guarantees meaningful.
 """
 
     # ------------------------------------------------------------------ abstract and MRS
+    abs_robust, mrs_tests = "", ""
+    if sf.exists():
+        SN = json.loads(sf.read_text(encoding="utf-8"))
+        levs = ("0.05", "0.15", "0.3")
+        reg_sp = all(SN[f"sp{l}_B2m"]["NR"] > max(SN[f"sp{l}_A1"]["NR"], SN[f"sp{l}_B0f"]["NR"]) for l in levs)
+        cov_noise = all(a > b for a, b in zip(SN["cov_A4"], SN["cov_B2c"]))
+        if reg_sp and cov_noise and SN.get("cov_gap_all_sp") and SN.get("regret_gap_all_noise"):
+            abs_robust = (" Both differences persisted when the historical price variation and the demand"
+                          " noise were varied.")
+        else:
+            flags.append("abstract: robustness sentence dropped (a sensitivity comparison does not hold)")
+        if SN["elast_decreasing"]["A1"] and SN["regret_decreasing"]["A1"]:
+            mrs_tests = (" Planned price tests also improve the model, because the variation they create"
+                         " sharpens the elasticity estimates on which the plans depend.")
     abstract = rf"""Firms increasingly delegate pricing, promotion, and recycled-content
 planning to pipelines in which a machine-learning forecaster feeds an optimizer.
 Two questions remain open for managers: which forecast accuracy matters for the
@@ -375,7 +389,7 @@ against {f0(black_lo)}--{f0(black_hi)}\% for black-box forecasters; price loss t
 elasticity error (Spearman {K['rho_elast']:.2f}), not forecast error
 ({K['rho_mape']:.2f}); and moving from historical to planned decisions cost a
 black-box conformal band {f0(gap_b2c)} points of coverage against {f0(gap_a4)} for
-SIDN-CRO. Embedded structure, more than flexibility, makes AI-based plans
+SIDN-CRO.{abs_robust} Embedded structure, more than flexibility, makes AI-based plans
 accurate and their guarantees meaningful."""
 
     mrs = rf"""Planning teams increasingly let machine-learning models choose prices,
@@ -390,7 +404,7 @@ the price elasticities that a forecaster implies at the proposed plan rather
 than its hold-out error, prefer models with embedded economic structure, whose
 uncertainty bands remain informative at new decisions, and choose a
 conservatism level that trades expected profit against the risk of violating
-capacity and recycled-input commitments. The proposed framework makes this
+capacity and recycled-input commitments.{mrs_tests} The proposed framework makes this
 trade-off explicit and auditable and runs on sales, marketing, and procurement
 data that planning organizations already hold."""
 

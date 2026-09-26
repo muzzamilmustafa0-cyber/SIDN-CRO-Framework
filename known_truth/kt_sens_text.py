@@ -119,6 +119,15 @@ def main():
     cov_x = [S[f"sd{l}_B2c"]["cover"] for l in (0.05, 0.10, 0.20)]
     cov_s = [S[f"sd{l}_A4"]["cover"] for l in (0.05, 0.10, 0.20)]
     check(all(s > x for s, x in zip(cov_s, cov_x)), "sensitivity: SIDN band not above black-box band at every noise level")
+    # the two main differences in the other dimension: coverage across price variation, regret across noise
+    cov_s_sp = [S[f"sp{l}_A4"]["cover"] for l in (0.05, 0.15, 0.3)]
+    cov_x_sp = [S[f"sp{l}_B2c"]["cover"] for l in (0.05, 0.15, 0.3)]
+    nr_noise = {m: [S[f"sd{l}_{m}"]["NR"] for l in (0.05, 0.10, 0.20)] for m in ("A1", "B0f", "B2m")}
+    cov_gap_sp = all(s > x for s, x in zip(cov_s_sp, cov_x_sp))
+    reg_gap_noise = all(nr_noise["B2m"][k] > max(nr_noise["A1"][k], nr_noise["B0f"][k]) for k in range(3))
+    check(cov_gap_sp, "sensitivity: SIDN band not above black-box band at every price variation")
+    check(reg_gap_noise, "sensitivity: structure not ahead of black box at every noise level")
+    x_rises = cov_x_sp[0] < cov_x_sp[1] < cov_x_sp[2]
     nr4 = [S[f"sd{l}_A4"]["NR"] for l in (0.05, 0.10, 0.20)]
     nr1 = [S[f"sd{l}_A1"]["NR"] for l in (0.05, 0.10, 0.20)]
     price_of_guar = [a - b for a, b in zip(nr4, nr1)]
@@ -150,6 +159,15 @@ def main():
     else:
         adv = f"The difference between \\SIDN and the classical model is ${d[0]:+.1f}$, ${d[1]:+.1f}$, and ${d[2]:+.1f}$ points."
     sens_reg = f"The regret of \\SIDN {trend('A1')}, whereas that of the classical model {trend('B0f')}. {adv}"
+    cov_sp_sentence = ""
+    if cov_gap_sp:
+        cov_sp_sentence = (
+            f" At the planned decisions, the band of \\SIDNCRO covers the realized demand in "
+            f"{pc(cov_s_sp[0])}\\%, {pc(cov_s_sp[1])}\\%, and {pc(cov_s_sp[2])}\\% of the weeks at the three levels of price "
+            f"variation, against {pc(cov_x_sp[0])}\\%, {pc(cov_x_sp[1])}\\%, and {pc(cov_x_sp[2])}\\% for the black-box band"
+            + (", whose coverage rises with the historical price variation, consistent with "
+               "Theorem~\\ref{thm:transport}: the wider the historical decisions, the less of the plan lies "
+               "outside them." if x_rises else "."))
     text = rf"""
 \subsection{{Sensitivity to Historical Price Variation and Demand Noise}}
 \label{{ssec:res_sens}}
@@ -165,7 +183,7 @@ Fig.~\ref{{fig:sens}}). {sens_elast} (\SIDN from {S['sp0.05_A1']['elast_err']:.2
 {S['sp0.3_A1']['elast_err']:.2f}, classical model from {S['sp0.05_B0f']['elast_err']:.2f} to
 {S['sp0.3_B0f']['elast_err']:.2f}). {sens_reg} The best black-box model, monotone XGBoost, forfeits
 {f1(S['sp0.05_B2m']['NR'])}\%, {f1(S['sp0.15_B2m']['NR'])}\%, and {f1(S['sp0.3_B2m']['NR'])}\% at the three levels, so the
-advantage of structure persists at every level of price variation. Across noise levels, the band of \SIDNCRO covers the
+advantage of structure persists at every level of price variation.{cov_sp_sentence} Across noise levels, the band of \SIDNCRO covers the
 realized demand at the planned decisions in {pc(cov_s[0])}\%, {pc(cov_s[1])}\%, and {pc(cov_s[2])}\% of the
 weeks, against {pc(cov_x[0])}\%, {pc(cov_x[1])}\%, and {pc(cov_x[2])}\% for the black-box band, and the
 price of the guarantee (regret of \SIDNCRO minus that of \SIDN) is {f1(price_of_guar[0])},
@@ -228,6 +246,8 @@ values are the base setting of the main experiments.}}
     fig.savefig(V2 / "figs" / "fig_kt_sens.png", dpi=300, bbox_inches="tight")
     plt.close(fig)
     (V2 / "body_sens.tex").write_text(text, encoding="utf-8")
+    S.update({"cov_by_sp": {"A4": cov_s_sp, "B2c": cov_x_sp}, "nr_by_noise": nr_noise,
+              "cov_gap_all_sp": cov_gap_sp, "regret_gap_all_noise": reg_gap_noise})
     S.update({"elast_decreasing": e_dec, "regret_decreasing": r_dec, "a1_minus_b0f": a1_vs_b0,
               "cov_A4": cov_s, "cov_B2c": cov_x, "price_of_guarantee": price_of_guar})
     (V2 / "sens_numbers.json").write_text(json.dumps(S, indent=1), encoding="utf-8")
