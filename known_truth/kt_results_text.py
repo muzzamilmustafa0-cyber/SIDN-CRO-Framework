@@ -20,6 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from kt_analyze import load, RES, POOL, pool_complete_seeds  # noqa: E402
 
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 BLACK = ["B1", "B2", "B2m", "B4"]
 DSL = {"dataco": "DataCo", "olist": "Olist", "synth": "Synth-2026"}
 flags = []
@@ -48,11 +49,12 @@ def boot_mean_ci(d, reps=10000, seed=2026):
 
 
 def ci(t, d=1):
-    return f"{t[0]:.{d}f} points (95\\% CI {t[1]:.{d}f} to {t[2]:.{d}f})"
+    # signed numbers in math mode, so that a negative bound prints with a minus sign
+    return f"${t[0]:.{d}f}$ points (95\\% CI ${t[1]:.{d}f}$ to ${t[2]:.{d}f}$)"
 
 
 def pfmt(p):
-    return "p<0.001" if p < 1e-3 else f"p={p:.3f}"
+    return "$p<0.001$" if p < 1e-3 else f"$p={p:.3f}$"
 
 
 def main():

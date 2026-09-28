@@ -17,6 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from kt_analyze import load, RES, POOL, pool_complete_seeds  # noqa: E402
 
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 DS = ["dataco", "olist", "synth"]
 DSL = {"dataco": "DataCo", "olist": "Olist", "synth": "Synth-2026"}
 FAM = ["F1", "F2", "F3", "F4", "F5"]

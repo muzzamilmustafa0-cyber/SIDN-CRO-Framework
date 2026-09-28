@@ -39,7 +39,7 @@ that the true profit of any plan and the true optimum can be computed.
 | `kt_run.py`, `kt_run_pool.py`, `kt_run_sens.py` | Runners: one task per (panel, family, seed) |
 | `kt_analyze.py` | Loads all result files |
 | `kt_tables.py` | Tables and figures of the Results section and the supplementary pooled-variant table |
-| `kt_results_text.py`, `kt_sens_text.py`, `kt_discussion_text.py`, `kt_supplement_text.py` | Generate the result-dependent text of the paper (Results, sensitivity analysis, Introduction summary, Discussion, Limitations, Conclusion, abstract, managerial relevance statement, Supplementary Sections S3–S4). Every number is computed; every qualitative statement is checked against the data and reported as a FLAG if it does not hold |
+| `kt_results_text.py`, `kt_sens_text.py`, `kt_discussion_text.py`, `kt_supplement_text.py` | Generate the result-dependent text of the paper (Results, sensitivity analysis, Introduction summary, Discussion, Limitations, Conclusion, abstract, managerial relevance statement, Supplementary Sections S3–S4). Every number is computed; every qualitative statement is checked against the data and reported as a FLAG if it does not hold (`discussion_static.tex` holds the fixed text of the deployment subsection) |
 | `fig_mechanism.py`, `fig_theory.py` | Mechanism figure (one instance) and the loss curves of Proposition 3 |
 | `diag_confound.py` | Correlation of historical advertising and recycled content with base demand (Supplementary Table S2) |
 | `time_deploy.py` | Wall-clock time of SIDN training, conformal calibration, and one robust plan on one CPU thread |
@@ -80,6 +80,10 @@ python known_truth/kt_sens_text.py
 python known_truth/kt_discussion_text.py
 python known_truth/kt_supplement_text.py
 ```
+
+Step 4 writes every figure as PNG and as vector PDF, and the text in the
+wording of the submitted manuscript (set `KT_VENUE=tem` for the wording of an
+earlier version; the numbers are identical).
 
 The runners skip tasks whose result file exists, so steps 1 and 2 can be
 interrupted and resumed. With 16 concurrent runs on a 10-core laptop CPU, one

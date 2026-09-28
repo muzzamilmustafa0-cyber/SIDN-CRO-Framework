@@ -1,0 +1,19 @@
+\subsection{Deployment in Production and Logistics Planning}
+\label{ssec:deploy}
+
+A weekly deployment of \SIDNCRO needs three data streams that planning
+organizations already maintain: sales by product and customer segment with the
+prices charged, cooperative-advertising spend by echelon from marketing
+records, and recycled-input shares from procurement records. The structural
+parameters are estimated from the variation in these historical decisions, so
+the elasticity estimates are only as good as that variation; planned price
+tests or rotating promotions are the practical way to supply it
+(Proposition~\ref{prop:elasticity}). The workflow has four steps: retrain the
+network on the latest history (8--17~seconds on one processor thread for the panels
+of the benchmark); recompute the conformal quantile on the most recent weeks,
+including the errors observed at last week's implemented plan (under
+0.1~seconds); solve the robust plan (1--35~seconds per week); and set the
+conservatism level $\rho$ according to the cost of violating capacity or
+recycled-input commitments. Because the band and the
+structural parameters are explicit, planners can audit the elasticities and
+the width of the band before committing a plan.

@@ -18,6 +18,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib
+matplotlib.rcParams["pdf.fonttype"] = 42  # embed TrueType fonts in PDF figures
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -25,6 +26,7 @@ HERE = Path(__file__).resolve().parent
 RES = HERE.parent / "results" / "known_truth"
 SENS = HERE.parent / "results" / "known_truth_sens"
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(HERE.parent / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 MODELS = ["B0f", "B2m", "A1", "A4", "B2c"]
 SEEDS = [42, 43, 44]
 flags = []
@@ -244,6 +246,7 @@ values are the base setting of the main experiments.}}
     fig.subplots_adjust(top=0.72, bottom=0.17, left=0.07, right=0.99)
     (V2 / "figs").mkdir(exist_ok=True)
     fig.savefig(V2 / "figs" / "fig_kt_sens.png", dpi=300, bbox_inches="tight")
+    fig.savefig(V2 / "figs" / "fig_kt_sens.pdf", bbox_inches="tight")  # vector copy for the journal artwork
     plt.close(fig)
     (V2 / "body_sens.tex").write_text(text, encoding="utf-8")
     S.update({"cov_by_sp": {"A4": cov_s_sp, "B2c": cov_x_sp}, "nr_by_noise": nr_noise,

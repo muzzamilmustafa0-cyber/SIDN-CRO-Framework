@@ -8,11 +8,13 @@ from pathlib import Path
 
 import numpy as np
 import matplotlib
+matplotlib.rcParams["pdf.fonttype"] = 42  # embed TrueType fonts in PDF figures
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8.5, "axes.spines.top": False,
                      "axes.spines.right": False})
 
@@ -44,6 +46,7 @@ fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.55, 1.0), ncol
 fig.tight_layout(rect=(0, 0, 1, 0.84))
 (V2 / "figs").mkdir(exist_ok=True)
 fig.savefig(V2 / "figs" / "fig_theory_regret.png", dpi=300, bbox_inches="tight")
+fig.savefig(V2 / "figs" / "fig_theory_regret.pdf", bbox_inches="tight")  # vector copy for the journal artwork
 (Path(__file__).resolve().parents[1] / "results" / "known_truth" / "summary" / "theory_regret.json").write_text(
     json.dumps(out, indent=1))
 print(json.dumps(out, indent=1))

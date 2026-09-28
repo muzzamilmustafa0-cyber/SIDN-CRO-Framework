@@ -18,6 +18,7 @@ import numpy as np
 import pandas as pd
 from scipy import stats
 import matplotlib
+matplotlib.rcParams["pdf.fonttype"] = 42  # embed TrueType fonts in PDF figures
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -26,6 +27,7 @@ from kt_analyze import load, holm  # noqa: E402
 
 # output folder for the manuscript tables/figures (set KT_PAPER_DIR to write elsewhere)
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 FAM = ["F1", "F2", "F3", "F4", "F5"]
 FAMLAB = {"F1": "F1", "F2": "F2", "F3": "F3", "F4": "F4", "F5": "F5"}
 DS = ["dataco", "olist", "synth"]
@@ -191,6 +193,7 @@ Panel & $n$ & Elast. & MAPE & Elast. & MAPE \\
                bbox_to_anchor=(0.5, 1.0), ncol=6, handletextpad=0.2, columnspacing=0.9)
     fig.tight_layout(rect=(0, 0, 1, 0.9))
     fig.savefig(figs / "fig_kt_h1.png", dpi=300, bbox_inches="tight")
+    fig.savefig(figs / "fig_kt_h1.pdf", bbox_inches="tight")  # vector copy for the journal artwork
     plt.close(fig)
 
     # ------------------------------------------------------------ conservatism trade-off
@@ -220,6 +223,7 @@ Panel & $n$ & Elast. & MAPE & Elast. & MAPE \\
     ax_v.legend(frameon=False, fontsize=7.5, loc="upper right")
     fig.tight_layout()
     fig.savefig(figs / "fig_kt_tradeoff.png", dpi=300, bbox_inches="tight")
+    fig.savefig(figs / "fig_kt_tradeoff.pdf", bbox_inches="tight")  # vector copy for the journal artwork
     plt.close(fig)
 
     # ------------------------------------------------------------ coverage at history vs at the plan (H2)
@@ -252,6 +256,7 @@ Panel & $n$ & Elast. & MAPE & Elast. & MAPE \\
               handletextpad=0.3, columnspacing=0.8)
     fig.tight_layout()
     fig.savefig(figs / "fig_kt_coverage.png", dpi=300, bbox_inches="tight")
+    fig.savefig(figs / "fig_kt_coverage.pdf", bbox_inches="tight")  # vector copy for the journal artwork
     plt.close(fig)
     numbers["coverage_fig"] = {f"{d}|{m}": {"hist": float(cm_.loc[(d, m), "cover_hist"]),
                                             "plan": float(cm_.loc[(d, m), "cover"])} for d, m in cm_.index}

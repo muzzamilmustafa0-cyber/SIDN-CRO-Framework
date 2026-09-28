@@ -18,9 +18,14 @@ import numpy as np
 from pathlib import Path
 
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 BLACK = ["B1", "B2", "B2m", "B4"]
 DSL = {"dataco": "DataCo", "olist": "Olist", "synth": "Synth-2026"}
 flags = []
+# journal-specific wording only (numbers and checks are identical): "ejor" (default; European Journal
+# of Operational Research: no unexplained acronyms in the abstract) or "tem" (an earlier version)
+VENUE = os.environ.get("KT_VENUE", "ejor").lower()
+EJOR = VENUE == "ejor"
 
 
 def check(cond, msg):
@@ -221,18 +226,18 @@ This pattern is consistent with the view that the returns to flexibility in
 decision-dependent planning are bounded by the decision variation that the
 history contains: Proposition~\ref{{prop:elasticity}} ties the profit loss to
 the elasticity error, and flexibility without identifying variation does not
-reduce it.{sens_flex} The value of an AI-based demand model for planning lies first in how
+reduce it.{sens_flex} The value of {'a machine-learning' if EJOR else 'an AI-based'} demand model for planning lies first in how
 it encodes the demand response and only then in its capacity to fit the data.
 
 \subsection{{Managerial Implications}}
 \label{{ssec:mgr_impl}}
 
-Work in this journal has examined how analytics and AI applications shape the
+{'Research on supply chain analytics' if EJOR else 'Work in this journal'} has examined how analytics and AI applications shape the
 responsiveness, resilience, and risk management of supply
 chains~\citep{{Stahl2023tem,Virmani2024tem,UlHaq2026tem,Jia2026tem}}. The present
 results bear on a question that precedes these benefits: how the analytics that
 choose plans should be selected, audited, and operated. {'Five' if sens_mgr else 'Four'} implications
-follow for organizations that let AI-based pipelines plan prices, promotions,
+follow for organizations that let {'machine-learning' if EJOR else 'AI-based'} pipelines plan prices, promotions,
 and recycled content.
 
 \emph{{Audit the response, not the fit.}} When a forecaster feeds an
@@ -298,8 +303,14 @@ F5 against F1: regret ${f5c['A1']:+.1f}$ (\SIDN) and ${f5c['B0f']:+.1f}$ points 
     check(v1 == "Supported" and v3 == "Supported" and v4 == "Not supported",
           "hypothesis verdicts differ from the Discussion text")
 
-    static = (V2 / "discussion_static.tex").read_text(encoding="utf-8")
-    deploy = static[static.index(r"\subsection{Deployment"):static.index(r"\section{Limitations")]
+    # the deployment subsection is fixed text; it ships with the code for standalone runs
+    static_f = V2 / "discussion_static.tex"
+    if not static_f.exists():
+        static_f = Path(__file__).resolve().parent / "discussion_static.tex"
+    static = static_f.read_text(encoding="utf-8")
+    start = static.index(r"\subsection{Deployment")
+    end = static.find(r"\section{Limitations", start)
+    deploy = static[start:end if end >= 0 else len(static)]
     disc += "\n" + deploy.strip() + "\n"
 
     pool_lim = ""
@@ -335,7 +346,7 @@ cross-price and dynamic effects.
 \section{{Conclusion}}
 \label{{sec:conclusion}}
 
-Organizations that let AI-based pipelines set prices, promotions, and recycled
+Organizations that let {'machine-learning' if EJOR else 'AI-based'} pipelines set prices, promotions, and recycled
 content need to know which accuracy to demand from the forecaster and which
 guarantees survive when the optimizer moves decisions away from history. This
 paper answered both questions theoretically and tested the answers on a
@@ -349,7 +360,7 @@ coverage at its own plans, the structural band {f0(gap_a4)}. Conformal robust
 planning turned the transferred guarantee into feasibility, reducing the share
 of weeks with a violated limit from up to {f0(100 * max_nom_viol)}\% to at most
 {f0(100 * robust_max)}\% at an explicit and adjustable price in expected profit.
-Structure, more than flexibility, is what makes AI-based plans accurate and
+Structure, more than flexibility, is what makes {'data-driven' if EJOR else 'AI-based'} plans accurate and
 their guarantees meaningful.
 """
 
@@ -391,6 +402,31 @@ elasticity error (Spearman {K['rho_elast']:.2f}), not forecast error
 black-box conformal band {f0(gap_b2c)} points of coverage against {f0(gap_a4)} for
 SIDN-CRO.{abs_robust} Embedded structure, more than flexibility, makes AI-based plans
 accurate and their guarantees meaningful."""
+    if EJOR:
+        # EJOR: no formulae and no unexplained abbreviations or acronyms in the abstract
+        sig = (" (significant at the 0.1\\% level)" if K["p_black_A1"] < 1e-3 else "")
+        abstract = rf"""Firms increasingly delegate pricing, promotion, and recycled-content
+planning to pipelines in which a machine-learning forecaster feeds an optimizer.
+Two questions remain open: which forecast accuracy matters for the quality of a
+plan, and whether distribution-free guarantees, such as those of conformal
+prediction, remain valid when the optimizer moves decisions away from their
+historical values. We answer both for weekly planning in circular supply
+chains. We prove that optimal prices are invariant to the level of a
+multiplicative demand forecast and derive the closed-form profit loss caused by
+an elasticity error. We further prove that a conformal guarantee computed at
+historical decisions transfers to planned decisions up to a shape discrepancy
+that vanishes when the model's demand response has the true shape, and that the
+transferred guarantee yields plan-level feasibility and a profit floor. The
+resulting framework couples a structure-informed demand network with conformal
+robust optimization. On a known-ground-truth benchmark built from three
+weekly demand panels (two public, one synthetic) and five true response
+families, the structural models forfeited {f0(struct_lo)}--{f0(struct_hi)}\% of the optimal
+profit against {f0(black_lo)}--{f0(black_hi)}\% for black-box forecasters{sig}; price loss
+tracked elasticity error (Spearman correlation {K['rho_elast']:.2f}), not forecast
+error ({K['rho_mape']:.2f}); and moving from historical to planned decisions cost a
+black-box conformal band {f0(gap_b2c)} points of coverage against {f0(gap_a4)} for the
+structure-informed band.{abs_robust} Embedded structure, more than flexibility,
+makes data-driven plans accurate and their guarantees meaningful."""
 
     mrs = rf"""Planning teams increasingly let machine-learning models choose prices,
 promotions, and recycled-content levels, and they select these models by their

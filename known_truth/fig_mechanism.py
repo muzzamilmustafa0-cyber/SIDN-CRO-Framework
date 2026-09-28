@@ -18,6 +18,7 @@ from pathlib import Path
 os.environ.setdefault("OMP_NUM_THREADS", "1")
 import numpy as np
 import matplotlib
+matplotlib.rcParams["pdf.fonttype"] = 42  # embed TrueType fonts in PDF figures
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -29,6 +30,7 @@ from kt_run_sens import fit_subset                               # noqa: E402
 from kt_solver import Planner, default_starts                    # noqa: E402
 
 V2 = Path(os.environ.get("KT_PAPER_DIR", str(Path(__file__).resolve().parents[1] / "results" / "paper")))
+(V2 / "figs").mkdir(parents=True, exist_ok=True)   # output folder of the tables, figures, and text
 DS = sys.argv[1] if len(sys.argv) > 1 else "dataco"
 plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 8.5, "axes.spines.top": False,
                      "axes.spines.right": False})
@@ -171,6 +173,7 @@ fig.legend(handles, labels, handler_map={tuple: HandlerTuple(ndivide=None, pad=0
 fig.subplots_adjust(top=0.74, bottom=0.15, left=0.075, right=0.99)
 (V2 / "figs").mkdir(exist_ok=True)
 fig.savefig(V2 / "figs" / "fig_kt_mechanism.png", dpi=300, bbox_inches="tight")
+fig.savefig(V2 / "figs" / "fig_kt_mechanism.pdf", bbox_inches="tight")  # vector copy for the journal artwork
 (Path(__file__).resolve().parents[1] / "results" / "known_truth" / "summary" / "mechanism.json").write_text(
     json.dumps(facts, indent=1))
 print("figure written")
