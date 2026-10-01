@@ -25,7 +25,8 @@ flags = []
 # journal-specific wording only (numbers and checks are identical): "ejor" (default; European Journal
 # of Operational Research: no unexplained acronyms in the abstract) or "tem" (an earlier version)
 VENUE = os.environ.get("KT_VENUE", "ejor").lower()
-EJOR = VENUE == "ejor"
+EJOR = VENUE in ("ejor", "cie")      # "cie" (Computers & Industrial Engineering) extends the "ejor" wording
+CIE = VENUE == "cie"                  # with the model-selection results of kt_selection.py
 
 
 def check(cond, msg):
@@ -102,6 +103,24 @@ def main():
                      f"cost profit (regret {f1(d0['NR'])}\\% at $\\rho=0$ and {f1(d1['NR'])}\\% at $\\rho=1$)")
     trade_text = "; ".join(tsent)
 
+    # ------------------------------------------------------------------ model selection (kt_selection.py)
+    SEL, sel_intro, sel_mgr, sel_conc = None, "", "", ""
+    if CIE:
+        selp = V2 / "selection_numbers.json"
+        if check(selp.exists(), "C&IE wording needs selection_numbers.json (run kt_selection.py first)"):
+            SEL = json.loads(selp.read_text(encoding="utf-8"))
+    if SEL:
+        cn = SEL["cell_nr"]
+        check(cn["forecast"] > cn["plan"], "selection: accuracy-based choice is not worse than plan-based")
+        sel_intro = (f" Replaying how a planner chooses a forecaster, choosing by forecast accuracy instead of"
+                     f" by the profit of its plans in a pilot raises the regret of the chosen model from"
+                     f" {f1(cn['plan'])}\\% to {f1(cn['forecast'])}\\%.")
+        sel_mgr = (f" In the benchmark, choosing the forecaster by the profit of its plans in a pilot instead of"
+                   f" by its forecast error lowered the regret of the chosen model from {f1(cn['forecast'])}\\% to"
+                   f" {f1(cn['plan'])}\\% (Section~\\ref{{ssec:res_selection}}).")
+        sel_conc = (" Choosing forecasters by the profit of their plans rather than by their forecast accuracy"
+                    f" lowered the regret of the chosen model from {f1(cn['forecast'])}\\% to {f1(cn['plan'])}\\%.")
+
     # ------------------------------------------------------------------ Introduction summary
     intro = rf"""
 The experiments support the theory where it makes firm predictions and
@@ -114,7 +133,7 @@ historical to planned decisions costs the conformal band of a black-box
 forecaster {f0(gap_b2c)} points of coverage on average, against {f0(gap_a4)}
 for \SIDNCRO. A neural network with context-dependent elasticities, however,
 does not significantly outperform a classical structural model with global
-elasticities, and a sign error in the circularity response proves cheap. The
+elasticities, and a sign error in the circularity response proves cheap.{sel_intro} The
 remainder of the paper reviews related work (Section~\ref{{sec:lit}}),
 presents the planning problem and \SIDNCRO (Section~\ref{{sec:method}}),
 develops the theory (Section~\ref{{sec:theory}}), describes the evaluation
@@ -247,7 +266,7 @@ compare them with the evidence from price tests or with the elasticities of a
 simple structural model, and treat large disagreements as a warning. Post-hoc
 explanation methods can make black-box models more transparent~\citep{{Zhan2024tem}};
 for planning, the explanation that matters is the demand response at the
-proposed plan, which a structural model exposes directly.
+proposed plan, which a structural model exposes directly.{sel_mgr}
 
 \emph{{Do not carry black-box uncertainty bands over to new decisions.}} A
 band that covered {f0(100 * min(b2c_h))}--{f0(100 * max(b2c_h))}\% of the weeks at the
@@ -359,7 +378,7 @@ embedded structure controls: the black-box band lost {f0(gap_b2c)} points of
 coverage at its own plans, the structural band {f0(gap_a4)}. Conformal robust
 planning turned the transferred guarantee into feasibility, reducing the share
 of weeks with a violated limit from up to {f0(100 * max_nom_viol)}\% to at most
-{f0(100 * robust_max)}\% at an explicit and adjustable price in expected profit.
+{f0(100 * robust_max)}\% at an explicit and adjustable price in expected profit.{sel_conc}
 Structure, more than flexibility, is what makes {'data-driven' if EJOR else 'AI-based'} plans accurate and
 their guarantees meaningful.
 """
@@ -427,6 +446,29 @@ error ({K['rho_mape']:.2f}); and moving from historical to planned decisions cos
 black-box conformal band {f0(gap_b2c)} points of coverage against {f0(gap_a4)} for the
 structure-informed band.{abs_robust} Embedded structure, more than flexibility,
 makes data-driven plans accurate and their guarantees meaningful."""
+    if SEL:
+        # applied framing (C&IE): lead with the planning practice and end with the selection rule
+        cn = SEL["cell_nr"]
+        abstract = rf"""Firms increasingly let machine-learning forecasters feed the optimizers that
+set prices, promotions, and recycled-content levels, and they choose these forecasters by
+their forecast accuracy. We examine whether this practice yields good plans and whether
+distribution-free uncertainty bands, such as those of conformal prediction, remain valid at
+the decisions an optimizer recommends. Analytically, optimal prices do not depend on the
+level of a multiplicative demand forecast, the profit lost to an elasticity error has a
+closed form, and a conformal guarantee computed at historical decisions carries over to
+planned decisions only as far as the model's demand response has the true shape. We
+implement these results in a planning framework that couples a structure-informed demand
+network with conformal robust optimization and evaluate it on a known-ground-truth
+benchmark built from three weekly demand panels and five true response families.
+Structural models forfeited {f0(struct_lo)}--{f0(struct_hi)}\% of the optimal profit against
+{f0(black_lo)}--{f0(black_hi)}\% for black-box forecasters{sig}; price loss tracked elasticity
+error (Spearman correlation {K['rho_elast']:.2f}), not forecast error ({K['rho_mape']:.2f});
+and moving from historical to planned decisions cost a black-box conformal band
+{f0(gap_b2c)} points of coverage against {f0(gap_a4)} for the structure-informed band.
+Choosing the forecaster by forecast accuracy instead of by the profit of its plans in a
+pilot raised the regret of the chosen model from {f0(cn['plan'])}\% to {f0(cn['forecast'])}\%.
+Planners should therefore select and audit forecasters by the plans they produce, not by
+their fit to past data."""
 
     mrs = rf"""Planning teams increasingly let machine-learning models choose prices,
 promotions, and recycled-content levels, and they select these models by their

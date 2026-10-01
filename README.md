@@ -41,6 +41,7 @@ that the true profit of any plan and the true optimum can be computed.
 | `kt_tables.py` | Tables and figures of the Results section and the supplementary pooled-variant table |
 | `kt_results_text.py`, `kt_sens_text.py`, `kt_discussion_text.py`, `kt_supplement_text.py` | Generate the result-dependent text of the paper (Results, sensitivity analysis, Introduction summary, Discussion, Limitations, Conclusion, abstract, managerial relevance statement, Supplementary Sections S3–S4). Every number is computed; every qualitative statement is checked against the data and reported as a FLAG if it does not hold (`discussion_static.tex` holds the fixed text of the deployment subsection) |
 | `fig_mechanism.py`, `fig_theory.py` | Mechanism figure (one instance) and the loss curves of Proposition 3 |
+| `kt_selection.py` | Model selection by a planner: replays the choice of a forecaster on the first half of each run's test weeks and scores it on the second half (stored result files only) |
 | `diag_confound.py` | Correlation of historical advertising and recycled content with base demand (Supplementary Table S2) |
 | `time_deploy.py` | Wall-clock time of SIDN training, conformal calibration, and one robust plan on one CPU thread |
 | `test_oracle.py`, `test_calib.py` | Checks of the oracle against the closed-form markup, of convergence from different starting points, and of how often the limits bind |
@@ -77,6 +78,7 @@ python known_truth/time_deploy.py
 python known_truth/kt_tables.py
 python known_truth/kt_results_text.py
 python known_truth/kt_sens_text.py
+python known_truth/kt_selection.py
 python known_truth/kt_discussion_text.py
 python known_truth/kt_supplement_text.py
 ```
